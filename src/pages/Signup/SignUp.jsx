@@ -11,7 +11,6 @@ const SignUp = () => {
     register,
     handleSubmit,
     reset,
-
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const SignUp = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "user Created Successfully",
+            title: "User Created Successfully",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -38,50 +37,56 @@ const SignUp = () => {
       Swal.fire("Account Created Successfully");
     });
   };
+
   return (
     <>
       <Helmet>
-        <title>Bistro Boss|Sign Up</title>
+        <title>Bistro Boss | Sign Up</title>
       </Helmet>
-      <div className="hero bg-base-200 min-h-screen">
+      <div className="hero min-h-screen bg-base-200 dark:bg-gray-800">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Sign Up Now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100">
+              Sign Up Now!
+            </h1>
+            <p className="py-6 text-gray-700 dark:text-gray-300">
+              Join us today and enjoy exclusive features. Create an account to
+              get started!
             </p>
           </div>
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          <div className="card bg-base-100 dark:bg-gray-700 w-full max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Photo URL</span>
+                  <span className="label-text text-gray-900 dark:text-gray-100">
+                    Photo URL
+                  </span>
                 </label>
                 <input
                   name="photoURL"
                   type="text"
                   {...register("photoURL", { required: true })}
-                  placeholder="photoURL"
-                  className="input input-bordered"
+                  placeholder="Photo URL"
+                  className="input input-bordered dark:bg-gray-600 dark:text-gray-100"
                 />
                 {errors.photoURL && (
                   <span className="text-red-600 font-bold">
-                    Photo url is required
+                    Photo URL is required
                   </span>
                 )}
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Name</span>
+                  <span className="label-text text-gray-900 dark:text-gray-100">
+                    Name
+                  </span>
                 </label>
                 <input
                   name="name"
                   type="text"
                   {...register("name", { required: true })}
-                  placeholder="name"
-                  className="input input-bordered"
+                  placeholder="Name"
+                  className="input input-bordered dark:bg-gray-600 dark:text-gray-100"
                 />
                 {errors.name && (
                   <span className="text-red-600 font-bold">
@@ -91,14 +96,16 @@ const SignUp = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text text-gray-900 dark:text-gray-100">
+                    Email
+                  </span>
                 </label>
                 <input
                   name="email"
                   {...register("email", { required: true })}
                   type="email"
-                  placeholder="email"
-                  className="input input-bordered"
+                  placeholder="Email"
+                  className="input input-bordered dark:bg-gray-600 dark:text-gray-100"
                 />
                 {errors.email && (
                   <span className="text-red-600 font-bold">
@@ -108,7 +115,9 @@ const SignUp = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text text-gray-900 dark:text-gray-100">
+                    Password
+                  </span>
                 </label>
                 <input
                   name="password"
@@ -117,25 +126,26 @@ const SignUp = () => {
                     minLength: 6,
                     maxLength: 20,
                     pattern:
-                      /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).*$/,
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-__+.]).{6,20}$/,
                   })}
                   type="password"
-                  placeholder="password"
-                  className="input input-bordered"
+                  placeholder="Password"
+                  className="input input-bordered dark:bg-gray-600 dark:text-gray-100"
                 />
                 {errors.password?.type === "minLength" && (
                   <p className="text-red-500">
-                    Password must be at least 6 character
+                    Password must be at least 6 characters
                   </p>
                 )}
                 {errors.password?.type === "maxLength" && (
                   <p className="text-red-500">
-                    Password can not be more than 20 character
+                    Password cannot be more than 20 characters
                   </p>
                 )}
                 {errors.password?.type === "pattern" && (
                   <p className="text-red-500">
-                    must include upperCase,lowerCase and special character
+                    Password must include uppercase, lowercase, and special
+                    character
                   </p>
                 )}
               </div>
@@ -147,9 +157,12 @@ const SignUp = () => {
                 />
               </div>
             </form>
-            <p>
-              <small>
-                Already Have an account? <Link to="/login">Login</Link>{" "}
+            <p className="text-center mt-4">
+              <small className="text-gray-700 dark:text-gray-300">
+                Already have an account?{" "}
+                <Link to="/login" className="text-primary">
+                  Login
+                </Link>
               </small>
             </p>
           </div>
