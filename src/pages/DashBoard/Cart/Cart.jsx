@@ -1,8 +1,38 @@
+import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
+import { MdDelete } from "react-icons/md";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Cart = () => {
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
+  const axiosSecure = useAxiosSecure();
+
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // delete here
+        axiosSecure.delete(`/carts/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
   return (
     <div>
       <div className="flex justify-evenly">
@@ -15,6 +45,7 @@ const Cart = () => {
           {/* head */}
           <thead>
             <tr>
+              <th>#</th>
               <th>Item Image</th>
               <th>Name</th>
               <th>Price</th>
@@ -22,8 +53,9 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {cart.map((item) => (
+            {cart.map((item, idx) => (
               <tr key={item._id}>
+                <td> {idx + 1} </td>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -34,26 +66,20 @@ const Cart = () => {
                         />
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">Hart Hagerty</div>
-                      <div className="text-sm opacity-50">United States</div>
-                    </div>
                   </div>
                 </td>
-                <td>
-                  Zemlak, Daniel and Leannon
-                  <br />
-                  <span className="badge badge-ghost badge-sm">
-                    Desktop Support Technician
-                  </span>
-                </td>
-                <td>Purple</td>
+                <td>{item.name}</td>
+                <td> ${item.price} </td>
                 <th>
-                  <button className="btn btn-ghost btn-xs">details</button>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="btn btn-ghost btn-lg"
+                  >
+                    <MdDelete className="text-red-600" />
+                  </button>
                 </th>
               </tr>
             ))}
-            {/* row 1 */}
           </tbody>
         </table>
       </div>

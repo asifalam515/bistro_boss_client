@@ -5,8 +5,10 @@ import { SlCalender } from "react-icons/sl";
 import { MdOutlineRateReview } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 import { FaSearch } from "react-icons/fa";
+import useCart from "../hooks/useCart";
 
 const DashBoard = () => {
+  const [cart] = useCart();
   return (
     <div className="flex">
       {/* dashboard side bar content */}
@@ -15,7 +17,7 @@ const DashBoard = () => {
           <li>
             <NavLink to="/dashboard/cart">
               {" "}
-              <FaShoppingCart /> My Cart{" "}
+              <FaShoppingCart /> My Cart ({cart.length})
             </NavLink>
           </li>
           <li>
