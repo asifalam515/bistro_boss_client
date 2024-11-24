@@ -1,6 +1,6 @@
 import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
-
+import axios from "axios";
 import Swal from "sweetalert2";
 const FoodCard = ({ item }) => {
   const { name, image, price, recipe, _id } = item;
@@ -18,6 +18,9 @@ const FoodCard = ({ item }) => {
         image,
         price,
       };
+      axios.post("/carts", cartItem).then((res) => {
+        console.log(res.data);
+      });
     } else {
       Swal.fire({
         title: ";You are not logged In",
