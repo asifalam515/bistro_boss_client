@@ -26,9 +26,17 @@ const NavBar = () => {
       <li>
         <Link to="/order">Order Food</Link>
       </li>
-
+      <li>
+        <Link to="/">
+          <button className="btn">
+            Inbox
+            <div className="badge badge-secondary">+0</div>
+          </button>
+        </Link>
+      </li>
       {user ? (
         <>
+          {/* <span>{user?.displayName}</span> */}
           <button onClick={handleLogOut} className="btn btn-ghost">
             Logout
           </button>
