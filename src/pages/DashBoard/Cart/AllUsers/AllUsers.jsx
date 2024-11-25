@@ -13,7 +13,21 @@ const AllUsers = () => {
       return res.data;
     },
   });
-
+  const handleMakeAdmin = (user) => {
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${user.name} is an Admin now`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
   const handleDeleteUser = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -26,7 +40,8 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/users/${user._id}`).then((res) => {
-          if (res.data.deleteCount > 0) {
+          console.log("deleted one user");
+          if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
               title: "Deleted!",
@@ -64,9 +79,16 @@ const AllUsers = () => {
                 <td> {user.name} </td>
                 <td> {user.email} </td>
                 <td>
-                  <button className="btn btn-lg bg-orange-500">
-                    <FaUsers className="text-white text-2xl" />
-                  </button>
+                  {user.role === "admin" ? (
+                    "Admin"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      className="btn btn-lg bg-orange-500"
+                    >
+                      <FaUsers className="text-white text-2xl" />
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button
