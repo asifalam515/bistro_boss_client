@@ -31,14 +31,20 @@ const useAxiosSecure = () => {
       // Do something with response data
       return response;
     },
-    async function (error) {
+    (error) => {
       const status = error.response.status;
       console.log("status error in the interceptor", status);
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
       // for 401 and 403 logout the user and move the user to login page
       if (status === 401 || status === 403) {
-        await logOutUser();
+        logOutUser()
+          .then(() => {
+            Swal.fire("Logged Out for status code");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         navigate("/login");
       }
       return Promise.reject(error);
