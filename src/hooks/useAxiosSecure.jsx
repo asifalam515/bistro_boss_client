@@ -14,7 +14,6 @@ const useAxiosSecure = () => {
     function (config) {
       // Do something before request is sent
       const token = localStorage.getItem("access-token");
-      console.log("request stopped by interceptor", token);
       config.headers.authorization = `Bearer ${token}`;
 
       return config;
@@ -40,7 +39,7 @@ const useAxiosSecure = () => {
       if (status === 401 || status === 403) {
         logOutUser()
           .then(() => {
-            Swal.fire("Logged Out for status code");
+            Swal.fire("Logged Out for status code 401/ 403");
           })
           .catch((error) => {
             console.log(error);
