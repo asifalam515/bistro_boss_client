@@ -25,12 +25,18 @@ const AddItems = () => {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Category
             </label>
-            <select className="select select-bordered w-full max-w-xs">
+            <select
+              {...register("category")}
+              className="select select-bordered w-full max-w-xs"
+            >
               <option disabled selected>
                 Select a Category
               </option>
-              <option>Han Solo</option>
-              <option>Greedo</option>
+              <option value="salad">Salad</option>
+              <option value="pizza">Pizza</option>
+              <option value="soup">Soup</option>
+              <option value="dessert">Dessert</option>
+              <option value="drinks">Drinks</option>
             </select>
           </div>
           <div>
