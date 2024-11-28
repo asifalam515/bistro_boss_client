@@ -20,7 +20,7 @@ const AddItems = () => {
                 <span className="label-text">Recipe name*</span>
               </div>
               <input
-                {...register("name")}
+                {...register("name", { required: true })}
                 type="text"
                 placeholder="Type recipe name here"
                 className="input input-bordered w-full "
@@ -37,7 +37,7 @@ const AddItems = () => {
                   <span className="label-text">Category*</span>
                 </div>
                 <select
-                  {...register("category")}
+                  {...register("category", { required: true })}
                   className="select select-bordered w-full "
                 >
                   <option disabled selected>
@@ -59,7 +59,7 @@ const AddItems = () => {
                   <span className="label-text">Price*</span>
                 </div>
                 <input
-                  {...register("price")}
+                  {...register("price", { required: true })}
                   type="number"
                   placeholder="Price"
                   className="input input-bordered w-full "
@@ -81,7 +81,7 @@ const AddItems = () => {
           {/* file input */}
           <div className="form-control w-full my-6">
             <input
-              {...register("image")}
+              {...register("image", { required: true })}
               type="file"
               className="file-input w-full max-w-xs"
             />
