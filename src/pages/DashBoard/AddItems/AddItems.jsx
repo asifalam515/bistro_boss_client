@@ -8,18 +8,23 @@ const AddItems = () => {
   };
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+    <div className="p-6 bg-white rounded-lg dark:bg-gray-800 text-gray-900 dark:text-gray-100">
       <SectionTitle heading="Add an Item" subHeading="What's new?" />
       <div className="mt-6">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Name
+          <div className="w-full my-6">
+            {/* name */}
+            <label className="form-control w-full ">
+              <div className="label">
+                <span className="label-text">Recipe name*</span>
+              </div>
+              <input
+                {...register("name")}
+                type="text"
+                placeholder="Type recipe name here"
+                className="input input-bordered w-full "
+              />
             </label>
-            <input
-              {...register("name")}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 dark:focus:ring-indigo-300 focus:border-indigo-500 dark:focus:border-indigo-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-            />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -27,7 +32,7 @@ const AddItems = () => {
             </label>
             <select
               {...register("category")}
-              className="select select-bordered w-full max-w-xs"
+              className="select select-bordered w-full "
             >
               <option disabled selected>
                 Select a Category
