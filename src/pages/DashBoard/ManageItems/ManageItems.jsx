@@ -2,10 +2,36 @@ import { MdDelete } from "react-icons/md";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
 import { FaEdit } from "react-icons/fa";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageItems = () => {
   const [menu] = useMenu();
-  const handleDeleteItem = (item) => {};
+  const axiosSecure = useAxiosSecure();
+  const handleDeleteItem = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // we are here to delete :
+        axiosSecure.delete(`/menu/${item._id}`).then((res) => {
+          console.log(res.data);
+        });
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div>
@@ -47,8 +73,8 @@ const ManageItems = () => {
                   <td> {item.name} </td>
                   <td className="text-right"> ${item.price} </td>
                   <td>
-                    <button className="btn btn-lg bg-orange-500">
-                      <FaEdit className="text-white text-2xl" />
+                    <button className="btn btn-ghost bg-orange-500">
+                      <FaEdit className="text-white " />
                     </button>
                   </td>
                   <td>
