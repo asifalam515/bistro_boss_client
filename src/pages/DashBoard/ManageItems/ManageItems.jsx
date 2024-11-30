@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
+  const [menu, loading, refetch] = useMenu();
   const axiosSecure = useAxiosSecure();
   const handleDeleteItem = (item) => {
     Swal.fire({
@@ -22,12 +22,15 @@ const ManageItems = () => {
         // we are here to delete :
         axiosSecure.delete(`/menu/${item._id}`).then((res) => {
           console.log(res.data);
-        });
-
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
+          if (res.data.deletedCount > 0) {
+            // refetch to update the ui
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${item.name}  has been deleted`,
+              icon: "success",
+            });
+          }
         });
       }
     });
@@ -62,10 +65,7 @@ const ManageItems = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
-                          <img
-                            src={item.image}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+                          <img src={item.image} alt={item.name} />
                         </div>
                       </div>
                     </div>
