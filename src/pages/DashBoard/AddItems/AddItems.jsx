@@ -88,7 +88,7 @@ const AddItems = () => {
             <textarea
               {...register("recipe")}
               className="textarea textarea-bordered h-24"
-              placeholder="Bio"
+              placeholder="Details About recipe"
             ></textarea>
           </label>
           {/* file input */}
