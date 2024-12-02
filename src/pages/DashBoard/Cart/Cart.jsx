@@ -40,15 +40,13 @@ const Cart = () => {
         <h2 className="text-4xl">Items: {cart.length} </h2>
         <h2 className="text-4xl">Total Price: {totalPrice} </h2>
         {cart ? (
+          <Link to="/dashboard/payment">
+            <button className="btn btn-primary">Pay</button>
+          </Link>
+        ) : (
           <button disabled={!cart.length} className="btn btn-primary">
             Pay
           </button>
-        ) : (
-          <Link to="/dashboard/payment">
-            <button disabled={!cart.length} className="btn btn-primary">
-              Pay
-            </button>
-          </Link>
         )}
       </div>
       <div className="overflow-x-auto">
