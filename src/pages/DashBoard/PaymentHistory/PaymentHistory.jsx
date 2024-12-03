@@ -12,6 +12,7 @@ const PaymentHistory = () => {
       return res.data;
     },
   });
+
   return (
     <div>
       <h2 className="text-4xl"> Total Payment: {payments?.length} </h2>
@@ -21,20 +22,20 @@ const PaymentHistory = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Price </th>
+              <th>Price</th>
               <th>Transaction Id</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {payments?.map((payment, idx) => {
+            {payments?.map((payment, idx) => (
               <tr key={payment._id}>
                 <th> {idx + 1} </th>
                 <td> ${payment.price} </td>
                 <td>{payment.transactionId} </td>
                 <td> {payment.status} </td>
-              </tr>;
-            })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
